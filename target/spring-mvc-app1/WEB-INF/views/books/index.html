@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список книг</title>
+</head>
+<body>
+
+<div>
+        <p> <label for ="name">Ведите поисковый запрос: </label>
+            <input type = "text" id="name"/>
+        </p>
+
+        <p><input onclick="location.href='http://localhost:8080/books/search?value='+document.getElementById('name').value" type="submit" value="Искать!"/></p>
+</div>
+<hr/>
+
+<h2>Список книг</h2>
+<hr>
+<div th:each="book: ${books}">
+    <a th:href="@{/books/{id}(id=${book.getId()})}"th:text="${book.getName()+', '+book.getAuthor()+', '+book.getYear()}" >book</a>
+</div>
+<br/>
+<hr>
+<p><a href="books/add_book"> <button>Добавить книгу</button></a></p>
+<p><a href="http://localhost:8080"><button>Начальная страница</button></a></p>
+
+</body>
+</html>

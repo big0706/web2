@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Карточка читателя</title>
+</head>
+<body>
+<header class="header_show_person">
+    <h2 class="title" >Карточка</h2>
+</header>
+<hr/>
+<p><b> <a th:text="${person.getFullName()+', '+person.getYear()}" >Value</a> </b> </p>
+
+<div th:if="${books}">
+    <H3>Книги:</H3>
+    <h4>
+    <div  th:each="book: ${books}">
+        <p th:if="${book.isExpired()}" style="color:red" th:text="${book.getName()+', '+book.getAuthor()+', '+book.getYear()}" >book</p>
+        <p th:unless="${book.isExpired()}" th:text="${book.getName()+', '+book.getAuthor()+', '+book.getYear()}" >book</p>
+    </div>
+    </h4>
+</div>
+
+<p th:if="${books.isEmpty()}"><b>Человек пока не взял ни одной книги.</b></p>
+
+<hr>
+<p><a  th:href="@{/people/{id}/edit (id=${person.getId()})}"> <button> Редактировать!</button></a> </p>
+<p><form th:method="DELETE"  th:action="@{/people/{id} (id=${person.getId()})}">
+<input type="submit" value="Удалить"/>
+</form></p>
+<p><a href="/people"> <button>Список читателей</button> </a></p>
+</body>
+</html>
